@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class AlarmVolumeChanger : MonoBehaviour
 {
     [SerializeField] private float _volumeChangeDuration = 10f;
 
     private AudioSource _audioSource;
     private float _delay = 1f;
+    private float _maxVolume = 1f;
+    private float _minVolume = 0;
 
     private void Start()
     {
@@ -18,9 +22,9 @@ public class AlarmVolumeChanger : MonoBehaviour
     public void ChangeVolume(bool isTurnUp)
     {
         if (isTurnUp)
-            StartCoroutine(ChangeVolumeTo(1f));
+            StartCoroutine(ChangeVolumeTo(_maxVolume));
         else
-            StartCoroutine(ChangeVolumeTo(0));
+            StartCoroutine(ChangeVolumeTo(_minVolume));
     }
 
     private IEnumerator ChangeVolumeTo(float targetVolume)
@@ -29,7 +33,7 @@ public class AlarmVolumeChanger : MonoBehaviour
         float currentVolume = _audioSource.volume;
         float stepTime = _delay / _volumeChangeDuration;
 
-        if (targetVolume > 0 && _audioSource.isPlaying == false)        
+        if (targetVolume > _minVolume && _audioSource.isPlaying == false)        
             _audioSource.Play();
 
         while (currentVolume != targetVolume)
@@ -39,7 +43,7 @@ public class AlarmVolumeChanger : MonoBehaviour
             yield return wait;
         }
 
-        if (targetVolume == 0)
+        if (targetVolume == _minVolume)
             _audioSource.Stop();
     }
 }

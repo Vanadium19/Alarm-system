@@ -13,6 +13,7 @@ public class AlarmVolumeChanger : MonoBehaviour
     private float _delay = 1f;
     private float _maxVolume = 1f;
     private float _minVolume = 0;
+    private Coroutine _volumeChanger;
 
     private void Start()
     {
@@ -22,9 +23,28 @@ public class AlarmVolumeChanger : MonoBehaviour
     public void ChangeVolume(bool isTurnUp)
     {
         if (isTurnUp)
-            StartCoroutine(ChangeVolumeTo(_maxVolume));
+        {
+            StopVolumeChange();
+            StartVolumeChange(_maxVolume);
+        }
+        //StartCoroutine(ChangeVolumeTo(_maxVolume));
         else
-            StartCoroutine(ChangeVolumeTo(_minVolume));
+        {
+            StopVolumeChange();
+            StartVolumeChange(_minVolume);
+        }
+            //StartCoroutine(ChangeVolumeTo(_minVolume));
+    }
+
+    private void StartVolumeChange(float targetVolume)
+    {
+        _volumeChanger = StartCoroutine(ChangeVolumeTo(targetVolume));
+    }
+
+    private void StopVolumeChange()
+    {
+        if (_volumeChanger != null)
+            StopCoroutine(_volumeChanger);
     }
 
     private IEnumerator ChangeVolumeTo(float targetVolume)

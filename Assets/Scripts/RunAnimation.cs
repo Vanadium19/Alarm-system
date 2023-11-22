@@ -15,6 +15,7 @@ public class RunAnimation : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool(AnimatorPlayer.Params._runParamHash, Mathf.Abs(Input.GetAxis("Horizontal")) > 0);
+        _animator.SetBool(AnimatorPlayer.Params._runParamHash, 
+            Mathf.Abs(Input.GetAxis(NamesData.Axes.Horizontal)) > 0);
     }
 }

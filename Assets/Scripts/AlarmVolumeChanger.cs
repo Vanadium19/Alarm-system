@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -15,7 +13,7 @@ public class AlarmVolumeChanger : MonoBehaviour
     private float _minVolume = 0;
     private Coroutine _volumeChanger;
 
-    private void Start()
+    private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
     }
@@ -26,14 +24,12 @@ public class AlarmVolumeChanger : MonoBehaviour
         {
             StopVolumeChange();
             StartVolumeChange(_maxVolume);
-        }
-        //StartCoroutine(ChangeVolumeTo(_maxVolume));
+        }        
         else
         {
             StopVolumeChange();
             StartVolumeChange(_minVolume);
-        }
-            //StartCoroutine(ChangeVolumeTo(_minVolume));
+        }            
     }
 
     private void StartVolumeChange(float targetVolume)

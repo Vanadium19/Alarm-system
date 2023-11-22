@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 
-public class MoveController : MonoBehaviour
+public class PlaayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _minMoveDistance = 0.001f;

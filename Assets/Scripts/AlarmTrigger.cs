@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
 
-public class Alarm : MonoBehaviour
+public class AlarmTrigger : MonoBehaviour
 {
     [SerializeField] private UnityEvent<bool> _alarmed;
 
